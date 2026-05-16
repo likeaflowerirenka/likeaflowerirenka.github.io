@@ -1,0 +1,122 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #bf7a86;
+  font-family: monospace;
+}
+
+/* SCENES */
+.scene {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+}
+
+/* MENU */
+#menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(#bffaaf, #5e994e);
+  color: white;
+}
+
+#menu button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+/* WORLD */
+#world {
+  width: 3600px;
+  height: 3600px;
+  background: linear-gradient(#abdb9e, #8ccc7a);
+  position: absolute;
+}
+
+/* PLAYER (sprite + idle animation) */
+#player {
+  width: 42px;
+  height: 42px;
+  position: absolute;
+  background-image: url("https://64.media.tumblr.com/7e9cb421d4f8bd3fa07ba80b72d565e4/0844f92cf8f9405c-2d/s2048x3072/762f8a71ce2b2a35157a62d6c0621613649af706.pnj");
+  background-size: cover;
+  animation: float 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+  from { transform: translateY(0px); }
+  to { transform: translateY(2px); }
+}
+
+/* NPC */
+.npc {
+  width: 42px;
+  height: 42px;
+  position: absolute;
+  background-size: cover;
+}
+
+/* SPEECH BUBBLE */
+.bubble {
+  position: absolute;
+  background: white;
+  color: black;
+  padding: 6px;
+  font-size: 12px;
+  border-radius: 10px;
+  transform: translate(-50%, -140%);
+  white-space: nowrap;
+}
+
+/* ITEMS */
+.item {
+  width: 14px;
+  height: 14px;
+  background: #ffeaa7;
+  position: absolute;
+  border-radius: 3px;
+}
+
+/* 🎁 GIFT (IMPORTANT PART) */
+#gift {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: 2800px;
+  top: 2800px;
+  display: none;
+
+  background-image: url("https://64.media.tumblr.com/0b4e026105776adb3b845ae4fddcebd8/e921d0bdb136806f-a8/s2048x3072/a774698bdc5da14065138a4d7e5c3f303fc73048.pnj"); /* CHANGE THIS */
+  background-size: cover;
+
+  animation: glow 1.2s infinite alternate;
+}
+
+@keyframes glow {
+  from { transform: scale(1); filter: drop-shadow(0 0 5px gold); }
+  to { transform: scale(1.15); filter: drop-shadow(0 0 25px gold); }
+}
+
+/* END */
+#end {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: ##5e994e;
+  color: white;
+}
+
+#giftLink {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background: #white;
+  color: black;
+  text-decoration: none;
+}
