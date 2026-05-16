@@ -1,12 +1,15 @@
 let state = "menu";
 
-let player = { x: 200, y: 200, vx: 0, vy: 0 };
+let player = { x: 200, y: 200, vx: 0, vy: 0, speed: 5 };
 let camera = { x: 0, y: 0 };
 
 let quests = { memories: 0, done: false };
 
 const npcs = document.querySelectorAll(".npc");
 const items = document.querySelectorAll(".item");
+
+// Manage button state accurately
+const activeKeys = {};
 
 /* 🎬 START GAME */
 document.getElementById("startBtn").onclick = () => {
@@ -15,29 +18,40 @@ document.getElementById("startBtn").onclick = () => {
   document.getElementById("menu").style.display = "none";
   document.getElementById("game").style.display = "block";
 
-  document.getElementById("music").volume = 0.4;
-  document.getElementById("music").play();
+  const music = document.getElementById("music");
+  if (music) {
+    music.volume = 0.4;
+    music.play().catch(err => console.log("Audio waiting for user gesture context."));
+  }
 
   initNPCs();
   loop();
 };
 
-/* 🎮 INPUT */
+/* 🎮 INPUT CONTROLS */
 document.addEventListener("keydown", (e) => {
   if (state !== "game") return;
-
-  if (e.key === "ArrowUp") player.vy = -1;
-  if (e.key === "ArrowDown") player.vy = 1;
-  if (e.key === "ArrowLeft") player.vx = -1;
-  if (e.key === "ArrowRight") player.vx = 1;
+  activeKeys[e.key] = true;
+  updateVelocity();
 });
 
-document.addEventListener("keyup", () => {
+document.addEventListener("keyup", (e) => {
+  if (state !== "game") return;
+  delete activeKeys[e.key];
+  updateVelocity();
+});
+
+function updateVelocity() {
   player.vx = 0;
   player.vy = 0;
-});
 
-/* 🧑 NPC INIT (editable system) */
+  if (activeKeys["ArrowUp"] || activeKeys["w"] || activeKeys["W"]) player.vy = -1;
+  if (activeKeys["ArrowDown"] || activeKeys["s"] || activeKeys["S"]) player.vy = 1;
+  if (activeKeys["ArrowLeft"] || activeKeys["a"] || activeKeys["A"]) player.vx = -1;
+  if (activeKeys["ArrowRight"] || activeKeys["d"] || activeKeys["D"]) player.vx = 1;
+}
+
+/* 🧑 NPC GENERATOR */
 function initNPCs() {
   npcs.forEach(npc => {
     npc.style.backgroundImage = `url(${npc.dataset.img})`;
@@ -48,7 +62,7 @@ function initNPCs() {
   });
 }
 
-/* 🎮 MAIN LOOP */
+/* 🎮 CORE GAME LOOP */
 function loop() {
   if (state !== "game") return;
 
@@ -62,40 +76,48 @@ function loop() {
   requestAnimationFrame(loop);
 }
 
-/* 🧍 PLAYER */
+/* 🧍 PLAYER STATE MACHINE */
 function updatePlayer() {
-  player.x += player.vx * 4;
-  player.y += player.vy * 4;
+  player.x += player.vx * player.speed;
+  player.y += player.vy * player.speed;
+
+  // Boundary clipping inside world coordinate canvas
+  player.x = Math.max(0, Math.min(3558, player.x));
+  player.y = Math.max(0, Math.min(3558, player.y));
 
   const el = document.getElementById("player");
   el.style.left = player.x + "px";
   el.style.top = player.y + "px";
 }
 
-/* 🎥 CAMERA (smooth indie feel) */
+/* 🎥 CAMERA TRANSFORM ENGINE */
 function updateCamera() {
   camera.x += (player.x - window.innerWidth / 2 - camera.x) * 0.07;
   camera.y += (player.y - window.innerHeight / 2 - camera.y) * 0.07;
 
-  document.getElementById("world").style.transform =
-    `translate(${-camera.x}px, ${-camera.y}px)`;
+  document.getElementById("world").style.transform = `translate(${-camera.x}px, ${-camera.y}px)`;
 }
 
-/* 🧑 NPC DIALOGUE */
+/* 🧑 NPC DIALOGUE SYSTEM */
 function updateNPCs() {
   npcs.forEach(npc => {
     const bubble = npc.querySelector(".bubble");
-
+    
     const dist = Math.hypot(
       player.x - npc.offsetLeft,
       player.y - npc.offsetTop
     );
 
-    bubble.innerText = dist < 70 ? npc.dataset.text : "";
+    if (dist < 80) {
+      bubble.innerText = npc.dataset.text;
+      bubble.style.display = "block";
+    } else {
+      bubble.style.display = "none";
+    }
   });
 }
 
-/* 🎁 ITEMS */
+/* 🎁 ITEM COLLECTION SYSTEM */
 function updateItems() {
   items.forEach(item => {
     if (item.style.display === "none") return;
@@ -105,24 +127,23 @@ function updateItems() {
       player.y - item.offsetTop
     );
 
-    if (dist < 25) {
+    if (dist < 35) {
       item.style.display = "none";
       quests.memories++;
     }
   });
 }
 
-/* 📜 QUEST */
+/* 📜 QUEST VERIFICATION */
 function updateQuest() {
   if (quests.memories >= 3) {
     quests.done = true;
   }
 }
 
-/* 🎁 GIFT SYSTEM (FULL CONTROL) */
+/* 🎁 PRESENT CONTROLLER */
 function updateGift() {
   const gift = document.getElementById("gift");
-
   if (!quests.done) return;
 
   gift.style.display = "block";
@@ -132,20 +153,17 @@ function updateGift() {
     player.y - 2800
   );
 
-  if (dist < 30) {
+  if (dist < 45) {
     endGame();
   }
 }
 
-/* 🎬 END */
+/* 🎬 RUNTIME TERMINATION */
 function endGame() {
   state = "end";
-
   document.getElementById("game").style.display = "none";
   document.getElementById("end").style.display = "flex";
-
-  document.getElementById("giftLink").href = "https://urodzinkimegaaa.carrd.co";
 }
 
-/* START LOOP */
-loop();
+// Show Menu view at initial processing tick
+document.getElementById("menu").style.display = "flex";
