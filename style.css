@@ -23,12 +23,27 @@ body {
   color: white;
 }
 
+#menu h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
 #menu button {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 12px 24px;
+  font-size: 18px;
   background: #ffffff;
+  color: #5e994e;
+  font-weight: bold;
   border: none;
+  border-radius: 20px;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+
+#menu button:hover {
+  transform: scale(1.05);
 }
 
 /* WORLD */
@@ -37,21 +52,25 @@ body {
   height: 3600px;
   background: linear-gradient(#abdb9e, #8ccc7a);
   position: absolute;
+  left: 0;
+  top: 0;
 }
 
-/* PLAYER (sprite + idle animation) */
+/* PLAYER */
 #player {
   width: 42px;
   height: 42px;
   position: absolute;
   background-image: url("https://64.media.tumblr.com/7e9cb421d4f8bd3fa07ba80b72d565e4/0844f92cf8f9405c-2d/s2048x3072/762f8a71ce2b2a35157a62d6c0621613649af706.pnj");
   background-size: cover;
+  background-position: center;
   animation: float 0.8s ease-in-out infinite alternate;
+  z-index: 10;
 }
 
 @keyframes float {
   from { transform: translateY(0px); }
-  to { transform: translateY(2px); }
+  to { transform: translateY(4px); }
 }
 
 /* NPC */
@@ -60,6 +79,7 @@ body {
   height: 42px;
   position: absolute;
   background-size: cover;
+  background-position: center;
 }
 
 /* SPEECH BUBBLE */
@@ -67,11 +87,19 @@ body {
   position: absolute;
   background: white;
   color: black;
-  padding: 6px;
+  padding: 8px 12px;
   font-size: 12px;
   border-radius: 10px;
-  transform: translate(-50%, -140%);
-  white-space: nowrap;
+  border: 2px solid #5e994e;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: normal;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  pointer-events: none;
+  display: none;
 }
 
 /* ITEMS */
@@ -81,9 +109,10 @@ body {
   background: #ffeaa7;
   position: absolute;
   border-radius: 3px;
+  box-shadow: 0 0 8px #ffeaa7;
 }
 
-/* 🎁 GIFT (IMPORTANT PART) */
+/* 🎁 GIFT */
 #gift {
   width: 60px;
   height: 60px;
@@ -91,10 +120,8 @@ body {
   left: 2800px;
   top: 2800px;
   display: none;
-
-  background-image: url("https://64.media.tumblr.com/0b4e026105776adb3b845ae4fddcebd8/e921d0bdb136806f-a8/s2048x3072/a774698bdc5da14065138a4d7e5c3f303fc73048.pnj"); /* CHANGE THIS */
+  background-image: url("https://64.media.tumblr.com/0b4e026105776adb3b845ae4fddcebd8/e921d0bdb136806f-a8/s2048x3072/a774698bdc5da14065138a4d7e5c3f303fc73048.pnj");
   background-size: cover;
-
   animation: glow 1.2s infinite alternate;
 }
 
@@ -103,20 +130,29 @@ body {
   to { transform: scale(1.15); filter: drop-shadow(0 0 25px gold); }
 }
 
-/* END */
+/* END SCREEN */
 #end {
   display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: ##5e994e;
+  background: #5e994e;
   color: white;
+  text-align: center;
 }
 
 #giftLink {
   margin-top: 20px;
-  padding: 10px 15px;
-  background: #white;
-  color: black;
+  padding: 12px 24px;
+  background: white;
+  color: #5e994e;
   text-decoration: none;
+  font-weight: bold;
+  border-radius: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+
+#giftLink:hover {
+  transform: scale(1.1);
 }
