@@ -1,37 +1,52 @@
-<div id="menu" class="scene">
-  <h1>🍓 Vvkowe urodzinki!!</h1>
-  <button id="startBtn">Start Game</button>
-</div>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vvkowe Urodzinki</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<div id="game" class="scene">
-  <div id="world">
-
-    <div id="player"></div>
-
-    <!-- 🧑 NPCs (EDIT HERE) -->
-    <div class="npc" data-img="https://64.media.tumblr.com/b876d543d65f6fa85355c5e4879c946d/0844f92cf8f9405c-15/s2048x3072/10bb010b1eaf6fb3e5273aa8902ce29365ec1ecd.pnj" data-text="Siemka twin!! tu hello kitty, wszystkiego naj!! i zbieraj te zolte kupy i podazaj za sladami sanriosuw to cos dostaniesz!! pa twin!🎂" style="left:300px; top:300px;"></div>
-    <div class="npc" data-img="https://64.media.tumblr.com/f1ef3c213abeb5114909a9ac57ee1e3c/0844f92cf8f9405c-6c/s2048x3072/154bd0c0a3637e9b346f6d5a62d5fab0c1f974a3.pnj" data-text="Jol Lenka vv jako pompompurin!!!Happy birthday bratku, tu pochacco, kitty dobrze mowi!!" style="left:900px; top:500px;"></div>
-    <div class="npc" data-img="https://64.media.tumblr.com/fc31696caba14ef594045557e8006b98/0844f92cf8f9405c-01/s2048x3072/2301a5d76426ea02deadbf39d355765724f07944.pnj" data-text="Siema!! Tu tuxedo sam, wiem jestem nugu... ale jestem slotki! blisko jestes vv!! n poddawaj sie" style="left:1400px; top:900px;"></div>
-    <div class="npc" data-img="https://64.media.tumblr.com/ab6f0c007fbc643467d58fa937083d39/0844f92cf8f9405c-6f/s2048x3072/2ba067c5a15fcf55b6160da515c148d2e13408cb.pnj" data-text="Jol, mowi kuromi, idz w dol a zara bedziesz, kuromi out" style="left:2000px; top:1400px;"></div>
-
-    <!-- 🎁 ITEMS -->
-    <div class="item" style="left:600px; top:600px;"></div>
-    <div class="item" style="left:1200px; top:900px;"></div>
-    <div class="item" style="left:1700px; top:1200px;"></div>
-
-    <!-- 🎁 GIFT (EDIT POSITION + IMAGE IN CSS/JS) -->
-    <div id="gift"></div>
-
+  <!-- 🎬 START MENU -->
+  <div id="menu" class="scene">
+    <h1>🍓 Vvkowe urodzinki!!</h1>
+    <button id="startBtn">Start Game</button>
   </div>
-</div>
 
-<div id="end" class="scene">
-  <h1>🍓 Naj Naj twin!!! 🍓 </h1>
-  <p>otworz prezent bratku..!</p>
-  <a id="https://urodzinkimegaaa.carrd.co" target="_blank">wklej link w google bo n dziala..link: https://urodzinkimegaaa.carrd.co</a>
-</div>
+  <!-- 🎮 GAME SCENE -->
+  <div id="game" class="scene">
+    <div id="world">
+      <div id="player"></div>
 
-<!-- 🎵 MUSIC -->
-<audio id="music" loop>
-  <source src="YOUR_MUSIC.mp3">
-</audio>
+      <!-- 🧑 NPCs -->
+      <div class="npc" data-img="https://64.media.tumblr.com/b876d543d65f6fa85355c5e4879c946d/0844f92cf8f9405c-15/s2048x3072/10bb010b1eaf6fb3e5273aa8902ce29365ec1ecd.pnj" data-text="Siemka twin!! tu hello kitty, wszystkiego naj!! i zbieraj te zolte kupy i podazaj za sladami sanriosuw to cos dostaniesz!! pa twin!🎂" style="left:300px; top:300px;"></div>
+      <div class="npc" data-img="https://64.media.tumblr.com/f1ef3c213abeb5114909a9ac57ee1e3c/0844f92cf8f9405c-6c/s2048x3072/154bd0c0a3637e9b346f6d5a62d5fab0c1f974a3.pnj" data-text="Jol Lenka vv jako pompompurin!!!Happy birthday bratku, tu pochacco, kitty dobrze mowi!!" style="left:900px; top:500px;"></div>
+      <div class="npc" data-img="https://64.media.tumblr.com/fc31696caba14ef594045557e8006b98/0844f92cf8f9405c-01/s2048x3072/2301a5d76426ea02deadbf39d355765724f07944.pnj" data-text="Siema!! Tu tuxedo sam, wiem jestem nugu... ale jestem slotki! blisko jestes vv!! n poddawaj sie" style="left:1400px; top:900px;"></div>
+      <div class="npc" data-img="https://64.media.tumblr.com/ab6f0c007fbc643467d58fa937083d39/0844f92cf8f9405c-6f/s2048x3072/2ba067c5a15fcf55b6160da515c148d2e13408cb.pnj" data-text="Jol, mowi kuromi, idz w dol a zara bedziesz, kuromi out" style="left:2000px; top:1400px;"></div>
+
+      <!-- 🎁 ITEMS -->
+      <div class="item" style="left:600px; top:600px;"></div>
+      <div class="item" style="left:1200px; top:900px;"></div>
+      <div class="item" style="left:1700px; top:1200px;"></div>
+
+      <!-- 🎁 GIFT -->
+      <div id="gift"></div>
+    </div>
+  </div>
+
+  <!-- 🏆 END SCREEN -->
+  <div id="end" class="scene">
+    <h1>🍓 Naj Naj twin!!! 🍓</h1>
+    <p>Otworz prezent bratku..!</p>
+    <a id="giftLink" href="https://urodzinkimegaaa.carrd.co" target="_blank">KLIKNIJ TUTAJ ABY OTWORZYĆ PREZENT ♡</a>
+  </div>
+
+  <!-- 🎵 MUSIC -->
+  <audio id="music" loop>
+    <source src="YOUR_MUSIC.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
